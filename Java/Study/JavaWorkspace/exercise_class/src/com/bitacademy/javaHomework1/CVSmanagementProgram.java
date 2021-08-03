@@ -2,21 +2,23 @@ package com.bitacademy.javaHomework1;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 
 public class CVSmanagementProgram {
 	
-	static Scanner sc = new Scanner(System.in);		// staticÀ¸·Î ½áÁà¾ß ´Ù¸¥ class¿¡¼­ sc¸¦ »ç¿ë °¡´É.
+	static Scanner sc = new Scanner(System.in);		// staticìœ¼ë¡œ ì¨ì¤˜ì•¼ ë‹¤ë¥¸ classì—ì„œ scë¥¼ ì‚¬ìš© ê°€ëŠ¥.
 	
 	
 	static int MAX = 300;
 	static int count = 0;
-	static int userCount = 0;	// ’QÇ°¿ë°ú, °í°´¿ëÀÇ count¸¦ µû·Î ³ª´®
+	static int userCount = 0;	// Â’Qí’ˆìš©ê³¼, ê³ ê°ìš©ì˜ countë¥¼ ë”°ë¡œ ë‚˜ëˆ”
 	
 	static int index = 0;
 	
-	static int[] p_numList = new int[MAX];		// static º¯¼ö´Â main ¾È¿¡ ¾²¸é ¿¡·¯ ¹ß»ı.
+	static int[] p_numList = new int[MAX];		// static ë³€ìˆ˜ëŠ” main ì•ˆì— ì“°ë©´ ì—ëŸ¬ ë°œìƒ.
 	static String[] p_nameList = new String[MAX];
 	static String[] p_categoryList = new String[MAX];
 	static int[] p_priceList = new int[MAX];
@@ -26,7 +28,7 @@ public class CVSmanagementProgram {
 	static int[] p_sell_monthList = new int[MAX];
 	static int[] p_sell_yearList = new int[MAX];
 	
-	static int tmp = 0;	// ÆÇ¸Å ±İ¾× ÇÕ°è¿ë
+	static int tmp = 0;	// íŒë§¤ ê¸ˆì•¡ í•©ê³„ìš©
 	
 	static int priceSum_date = 0;
 	static int priceSum_week = 0;
@@ -43,7 +45,7 @@ public class CVSmanagementProgram {
 	
 	static String fileName = "C:\\Output.txt";
 	
-	public static void main(String[] args) {	// main ½ÃÀÛ
+	public static void main(String[] args) {	// main ì‹œì‘
 		
 		P_receiving pReceiving = new P_receiving();
 		P_data pData = new P_data();
@@ -62,99 +64,99 @@ public class CVSmanagementProgram {
 		
 		while (1==1) {
 			System.out.println();
-			System.out.println("¸Ş´º ¹øÈ£ ¼±ÅÃ");
-			System.out.println("1) ¹°°Ç °ü¸® ¸Ş´º");
-			System.out.println("2) °í°´ °ü¸® ¸Ş´º");
-			System.out.println("3) ¸ÅÃâ, °í°´ Á¤º¸ µ¥ÀÌÅÍ ÆÄÀÏ·Î ÀúÀå");
-			System.out.println("(¸¶Áö¸·À¸·Î È®ÀÎÇÑ ¿ù, ÁÖ, ÀÏº° ¸ÅÃâ°ú ÀüÃ¼ °í°´ Á¤º¸ µ¥ÀÌÅÍ¸¦ " + fileName + "(À¸)·Î ÀúÀå)");
-			System.out.println("q) Á¾·á");
+			System.out.println("ë©”ë‰´ ë²ˆí˜¸ ì„ íƒ");
+			System.out.println("1) ë¬¼ê±´ ê´€ë¦¬ ë©”ë‰´");
+			System.out.println("2) ê³ ê° ê´€ë¦¬ ë©”ë‰´");
+			System.out.println("3) ë§¤ì¶œ, ê³ ê° ì •ë³´ ë°ì´í„° íŒŒì¼ë¡œ ì €ì¥");
+			System.out.println("(ë§ˆì§€ë§‰ìœ¼ë¡œ í™•ì¸í•œ ì›”, ì£¼, ì¼ë³„ ë§¤ì¶œê³¼ ì „ì²´ ê³ ê° ì •ë³´ ë°ì´í„°ë¥¼ " + fileName + "(ìœ¼)ë¡œ ì €ì¥)");
+			System.out.println("q) ì¢…ë£Œ");
 			String num_menu = sc.next();
 			System.out.println();
 			
 			if (num_menu.equals("1")) {
 				while(true) {
-					System.out.println("\n¹°°Ç °ü¸® ¸Ş´º");
-					System.out.println("1) ÀÔ°í ±â´É");
-					System.out.println("2) ÆÇ¸Å ±â´É(Á¦Ç° Á¤º¸ ¼öÁ¤À¸·Î ÆÇ¸Å³¯Â¥ Ãß°¡)");
-					System.out.println("3) Àç°í È®ÀÎ");
-					System.out.println("4) ¸ÅÃâ Áı°è ±â´É: ÀÏ, ÁÖ, ¿ù ´ÜÀ§");
-					System.out.println("5) ÀüÃ¼ Àç°í È®ÀÎ");
-					System.out.println("q) ÀÌÀü ¸Ş´º·Î ³ª°¡±â");
+					System.out.println("\në¬¼ê±´ ê´€ë¦¬ ë©”ë‰´");
+					System.out.println("1) ì…ê³  ê¸°ëŠ¥");
+					System.out.println("2) íŒë§¤ ê¸°ëŠ¥(ì œí’ˆ ì •ë³´ ìˆ˜ì •ìœ¼ë¡œ íŒë§¤ë‚ ì§œ ì¶”ê°€)");
+					System.out.println("3) ì¬ê³  í™•ì¸");
+					System.out.println("4) ë§¤ì¶œ ì§‘ê³„ ê¸°ëŠ¥: ì¼, ì£¼, ì›” ë‹¨ìœ„");
+					System.out.println("5) ì „ì²´ ì¬ê³  í™•ì¸");
+					System.out.println("q) ì´ì „ ë©”ë‰´ë¡œ ë‚˜ê°€ê¸°");
 					String num_menu1 = sc.next();
 					if (num_menu1.equals("1")) {
 						pReceiving.P_receiving();
 					}
 					else if (num_menu1.equals("2")) {
-						System.out.println("¼öÁ¤ÇÏ·Á´Â »óÇ° index ÀÔ·Â(0 ~ " + count + "): ");
+						System.out.println("ìˆ˜ì •í•˜ë ¤ëŠ” ìƒí’ˆ index ì…ë ¥(0 ~ " + count + "): ");
 						index = sc.nextInt();
 						pUpdate.P_update(index);
 					}
 					else if (num_menu1.equals("3")) {
-						System.out.println("Ãâ·ÂÇÏ·Á´Â »óÇ° index ÀÔ·Â(0 ~ " + count + "): ");
+						System.out.println("ì¶œë ¥í•˜ë ¤ëŠ” ìƒí’ˆ index ì…ë ¥(0 ~ " + count + "): ");
 						index = sc.nextInt();
 						pData.P_data(index);
 						
-						System.out.println("ÀüÃ¼ »óÇ° ¼ö: " + count);
+						System.out.println("ì „ì²´ ìƒí’ˆ ìˆ˜: " + count);
 					}
 					else if (num_menu1.equals("4")) {
-						System.out.println("¿øÇÏ´Â ¸ÅÃâ Á¤º¸ ÀÔ·Â('¿ùº°' ¶Ç´Â, 'ÁÖº°' ¶Ç´Â, 'ÀÏº°'Áß ¿øÇÏ´Â ¸Ş´º¸¦ ±ÛÀÚ·Î ÀÔ·Â)");
+						System.out.println("ì›í•˜ëŠ” ë§¤ì¶œ ì •ë³´ ì…ë ¥('ì›”ë³„' ë˜ëŠ”, 'ì£¼ë³„' ë˜ëŠ”, 'ì¼ë³„'ì¤‘ ì›í•˜ëŠ” ë©”ë‰´ë¥¼ ê¸€ìë¡œ ì…ë ¥)");
 						num_menu1 = sc.next();
-						if(num_menu1.equals("¿ùº°")) {
+						if(num_menu1.equals("ì›”ë³„")) {
 							pPriceSum_month.P_priceSum();
 						}
-						else if(num_menu1.equals("ÁÖº°")) {
+						else if(num_menu1.equals("ì£¼ë³„")) {
 							pPriceSum_week.P_priceSum();
 						}
-						else if(num_menu1.equals("ÀÏº°")) {
+						else if(num_menu1.equals("ì¼ë³„")) {
 							pPriceSum_month.P_priceSum();
 						}
 						else {
-							System.out.println("Àß¸ø ÀÔ·ÂÇÏ¿´½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.");
+							System.out.println("ì˜ëª» ì…ë ¥í•˜ì˜€ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 							System.out.println();
 						}
 					}
 					else if (num_menu1.equals("5")) {
 						for (int i = 0; i < count; i++) {
-							System.out.println("\n»óÇ° index: " + i);
-							System.out.println("»óÇ° ¹øÈ£: " + p_numList[i]);
-							System.out.println("»óÇ° ÀÌ¸§: " + p_nameList[i]);
-							System.out.println("»óÇ° ºĞ·ù " + p_categoryList[i]);
-							System.out.println("»óÇ° °¡°İ: " + p_priceList[i]);
-							System.out.println("ÆÇ¸Å ³¯Â¥: " + p_sell_yearList[i] + "³â "
-									 + p_sell_monthList[i] + "¿ù "
-									+ p_sell_weekList[i] + "ÁÖ "
-									+ p_sell_dateList[i] + "ÀÏ");
+							System.out.println("\nìƒí’ˆ index: " + i);
+							System.out.println("ìƒí’ˆ ë²ˆí˜¸: " + p_numList[i]);
+							System.out.println("ìƒí’ˆ ì´ë¦„: " + p_nameList[i]);
+							System.out.println("ìƒí’ˆ ë¶„ë¥˜ " + p_categoryList[i]);
+							System.out.println("ìƒí’ˆ ê°€ê²©: " + p_priceList[i]);
+							System.out.println("íŒë§¤ ë‚ ì§œ: " + p_sell_yearList[i] + "ë…„ "
+									 + p_sell_monthList[i] + "ì›” "
+									+ p_sell_weekList[i] + "ì£¼ "
+									+ p_sell_dateList[i] + "ì¼");
 						}
 
 					}
 					
 					else if (num_menu1.equals("q")) {
-						System.out.println("ÀÌÀü ¸Ş´º·Î µ¹¾Æ°©´Ï´Ù.");
+						System.out.println("ì´ì „ ë©”ë‰´ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤.");
 						break;
 					}
-					else if (num_menu1.equals("¤²")) {
-						System.out.println("ÀÌÀü ¸Ş´º·Î µ¹¾Æ°©´Ï´Ù.");
+					else if (num_menu1.equals("ã…‚")) {
+						System.out.println("ì´ì „ ë©”ë‰´ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤.");
 						break;
 					}
 					else {
-						System.out.println("Àß¸ø ÀÔ·ÂÇÏ¿´½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.");
+						System.out.println("ì˜ëª» ì…ë ¥í•˜ì˜€ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 						System.out.println();
 					}
 					
-				} // while¹® 1¹ø(¹°Ç° °ü¸®) Á¾·á.
+				} // whileë¬¸ 1ë²ˆ(ë¬¼í’ˆ ê´€ë¦¬) ì¢…ë£Œ.
 			}
 			
 			else if (num_menu.equals("2")) {
-				System.out.println("°í°´ °ü¸® ¸Ş´º");
+				System.out.println("ê³ ê° ê´€ë¦¬ ë©”ë‰´");
 				while(true) {
 					System.out.println();
-					System.out.println("\n¸Ş´º ¹øÈ£ ¼±ÅÃ");
-					System.out.println("1) °í°´ Á¤º¸ ÀÔ·Â");
-					System.out.println("2) °í°´ Á¤º¸ ¼öÁ¤");
-					System.out.println("3) °í°´ Á¤º¸ »èÁ¦");
-					System.out.println("4) Æ¯Á¤ °í°´ Á¤º¸ Ãâ·Â");
-					System.out.println("5) ÀüÃ¼ °í°´ Á¤º¸ Ãâ·Â");
-					System.out.println("q) ÀÌÀü ¸Ş´º·Î ³ª°¡±â");
+					System.out.println("\në©”ë‰´ ë²ˆí˜¸ ì„ íƒ");
+					System.out.println("1) ê³ ê° ì •ë³´ ì…ë ¥");
+					System.out.println("2) ê³ ê° ì •ë³´ ìˆ˜ì •");
+					System.out.println("3) ê³ ê° ì •ë³´ ì‚­ì œ");
+					System.out.println("4) íŠ¹ì • ê³ ê° ì •ë³´ ì¶œë ¥");
+					System.out.println("5) ì „ì²´ ê³ ê° ì •ë³´ ì¶œë ¥");
+					System.out.println("q) ì´ì „ ë©”ë‰´ë¡œ ë‚˜ê°€ê¸°");
 					String num_menu2 = sc.next();
 					System.out.println();
 					
@@ -162,7 +164,7 @@ public class CVSmanagementProgram {
 						addUser.AddUser();
 					}
 					else if (num_menu2.equals("2")) {
-						System.out.println("¼öÁ¤ÇÏ·Á´Â °í°´ key ÀÔ·Â(0 ~ " + userCount + "): ");
+						System.out.println("ìˆ˜ì •í•˜ë ¤ëŠ” ê³ ê° key ì…ë ¥(0 ~ " + userCount + "): ");
 						index = sc.nextInt();
 						userUpdate.UserUpdate(index);
 					}
@@ -171,79 +173,87 @@ public class CVSmanagementProgram {
 						userDelete.UserDelete(index);
 					}
 					else if (num_menu2.equals("4")) {
-						System.out.println("Ãâ·ÂÇÏ·Á´Â °í°´ key ÀÔ·Â(0 ~ \" + userCount + \"): ");
+						System.out.println("ì¶œë ¥í•˜ë ¤ëŠ” ê³ ê° key ì…ë ¥(0 ~ \" + userCount + \"): ");
 						index = sc.nextInt();
 						userData.UserData(index);
-						System.out.println("ÀüÃ¼ °í°´ ¼ö: " + userCount);
+						System.out.println("ì „ì²´ ê³ ê° ìˆ˜: " + userCount);
 					}
 					else if (num_menu2.equals("5")) {
 						for (int i = 0; i < userCount; i++) {
-							System.out.println("\n°í°´ key: " + i);
-							System.out.println("°í°´ ¼ºº°: " + userGenderList[i]);
-							System.out.println("°í°´ ÀÌ¸§: " + userNameList[i]);
-							System.out.println("°í°´ ¹øÈ£: " + userNumberList[i]);
+							System.out.println("\nê³ ê° key: " + i);
+							System.out.println("ê³ ê° ì„±ë³„: " + userGenderList[i]);
+							System.out.println("ê³ ê° ì´ë¦„: " + userNameList[i]);
+							System.out.println("ê³ ê° ë²ˆí˜¸: " + userNumberList[i]);
 						}
 					}
 					
 					else if (num_menu2.equals("q")) {
 						break;
 					}
-					else if (num_menu2.equals("¤²")) {
+					else if (num_menu2.equals("ã…‚")) {
 						break;
 					}
 					else {
-						System.out.println("Àß¸ø ÀÔ·ÂÇÏ¿´½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.");
+						System.out.println("ì˜ëª» ì…ë ¥í•˜ì˜€ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 					}
-				} // while¹® 2¹ø(°í°´ °ü¸®) Á¾·á
+				} // whileë¬¸ 2ë²ˆ(ê³ ê° ê´€ë¦¬) ì¢…ë£Œ
 			}
 			
 			else if (num_menu.equals("3")) {
 				
 				for(int i=0; i<userCount; i++) {
-					userData_Print += "\n\n°í°´ ÀÌ¸§: " + CVSmanagementProgram.userNameList[i]
-							+ "\n°í°´ ¼ºº°: " + CVSmanagementProgram.userGenderList[i]
-									+ "\n°í°´ ¹øÈ£: " + CVSmanagementProgram.userNumberList[i];
+					userData_Print += "\n\nê³ ê° ì´ë¦„: " + CVSmanagementProgram.userNameList[i]
+							+ "\nê³ ê° ì„±ë³„: " + CVSmanagementProgram.userGenderList[i]
+									+ "\nê³ ê° ë²ˆí˜¸: " + CVSmanagementProgram.userNumberList[i];
 				}
 				
-				String txt = "\n(¸¶Áö¸·À¸·Î È®ÀÎÇÑ(=ÀúÀåµÈ))\nÀÏº° ¸ÅÃâ: " + priceSum_date + "\nÁÖº° ¸ÅÃâ: " + priceSum_week + "\n¿ùº° ¸ÅÃâ: " + priceSum_month
-			    		+ "\n\n[ÀüÃ¼ °í°´ Á¤º¸ µ¥ÀÌÅÍ]: " + userData_Print;
+				Date today = new Date();
 				
-		        //String fileName = "C:\\Output.txt";	// À§¿¡ StaticÀ¸·Î »©¼­ Áßº¹
+				SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
+				SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss a");
 				
-		        try{// BufferedWriter ¿Í FileWriter¸¦ Á¶ÇÕÇÏ¿© »ç¿ë (¼Óµµ Çâ»ó)
+				String txt = "\n(ë§ˆì§€ë§‰ìœ¼ë¡œ í™•ì¸í•œ(=ì €ì¥ëœ))\nì¼ë³„ ë§¤ì¶œ: " + priceSum_date + "\nì£¼ë³„ ë§¤ì¶œ: " + priceSum_week + "\nì›”ë³„ ë§¤ì¶œ: " + priceSum_month
+			    		+ "\n\n[ì „ì²´ ê³ ê° ì •ë³´ ë°ì´í„°]: " + userData_Print
+			    		+ "\n\n" + date.format(today)
+			    		+ "\n" + time.format(today)
+			    		+ "\n============================";
+				
+		        //String fileName = "C:\\Output.txt";	// ìœ„ì— Staticìœ¼ë¡œ ë¹¼ì„œ ì¤‘ë³µ
+				
+		        try{// BufferedWriter ì™€ FileWriterë¥¼ ì¡°í•©í•˜ì—¬ ì‚¬ìš© (ì†ë„ í–¥ìƒ)
 		            BufferedWriter fw = new BufferedWriter(new FileWriter(fileName, true));
 		             
-		            // ÆÄÀÏ¾È¿¡ ¹®ÀÚ¿­ ¾²±â
+		            // íŒŒì¼ì•ˆì— ë¬¸ìì—´ ì“°ê¸°
 		            fw.write(txt);
 		            fw.flush();
 		 
-		            // °´Ã¼ ´İ±â
+		            // ê°ì²´ ë‹«ê¸°
 		            fw.close();
 		             
 		        }catch(Exception e){
 		            e.printStackTrace();
 		        }
-		        System.out.println("ÆÄÀÏ »ı¼ºÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+		        System.out.println("íŒŒì¼ ìƒì„±ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 			}
 			
 			else if (num_menu.equals("q")) {
-				System.out.println("ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù.");
+				System.out.println("í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.");
 				break;
 			}
-			else if (num_menu.equals("¤²")) {
-				System.out.println("ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù.");
+			else if (num_menu.equals("ã…‚")) {
+				System.out.println("í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.");
 				break;
 			}
 			else {
-				System.out.println("Àß¸ø ÀÔ·ÂÇÏ¿´½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.");
+				System.out.println("ì˜ëª» ì…ë ¥í•˜ì˜€ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 				System.out.println();
 			}
 
-		} // ÀüÃ¼ while¹® Á¾·á
+		} // ì „ì²´ whileë¬¸ ì¢…ë£Œ
 		
 		
 		
-	} // main Á¾·á
+	} // main ì¢…ë£Œ
 
-} // public class Á¾·á 
+} // public class ì¢…ë£Œ 
 
