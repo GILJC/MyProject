@@ -1,0 +1,37 @@
+<!--
+- 브라우저의 기본 스타일
+* xxx.css 스타일 시트 파일에 지정된 스타일
+* <style></style> 태그에 작성된 스타일
+* style 속성에 작성된 스타일
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>스타일 합치기 및 오버라이딩</title>
+<link type="text/css" rel="stylesheet" href="external.css">
+<style>
+p { color : blue; font-size : 12px; }
+</style>
+</head>
+<body>
+<h3>p 태그에 스타일 중첩</h3>
+<hr>
+<p>Hello, students!</p>
+<p style="font-size:25px">안녕하세요 교수님!</p>
+</body>
+</html>
+
+
+<!--
+
+Hello, students! ->  external.css 파일의 스타일을 받음
+
+
+아래쪽부터 우선순위가 들어감  ->  ?
+
+
+이도저도 아무것도 없으면 브라우저 기본 스타일로 감
+
+-->

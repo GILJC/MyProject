@@ -1,0 +1,76 @@
+<!-- select에 대해서 함. -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>셀렉터 만들기</title>
+<style>
+/* 1), 2), 3), 4) -> 원하는 번호 골라서 사용하면 됨 */
+/* h3, li {color: brown;}   -> 1) 태그 이름 셀렉트  */
+/*.warning {color:red;}
+body.main {background: aliceblue;} */  /* body 클래스에 있는 클래스에만 적용하고싶다. */
+/* 2) class 이름을 갖고 함   -> body class = main / <div class = "warning">   ->  클래스로 지정할땐 쩜(.)을 사용함 */
+/* .main으로 하면 묻지도 따지지도 않고 .main들어가는애들은 모두 다 스타일 변경  */
+/*  3) id값 으로 변경 => id값으로 변경할땐 샾# */
+/* #list {background: mistyrose;} */
+/* 4) */
+/*div>strong {color: dodgerblue;}   /* 얘는 div 바로 밑의 직계 자손이어야 함. -> 꺽쇠 > 표시 사용 */
+/*li > strong {color: red;}*/
+/*ul strong {color: red;}  /* 콤마가 들어가면 ul, strong 바꾸는것, 안들어가면 -> ul의 strong을 찾아 바꿔라 */
+/* 얘는 꺽쇠가 없으므로 직계자손이 아니라 증손자라도 가능 */
+/* )5 */
+/*li:haver {background: yellowgreen} /* 가상클래스 */
+/* 내용 복습 */
+h3, li { /* 태그 이름 셀렉터 */
+	color : brown;
+}
+div > div > strong { /* 자식 셀렉터 */
+	background : yellow;
+}
+ul strong { /* 자손 셀렉터 */
+	color : dodgerblue;
+}
+.warning { /* class 셀렉터 */
+	color : red;
+}
+body.main { /* class 셀렉터 */
+	 background : aliceblue;
+}
+#list { /* id 셀렉터 */
+	background : mistyrose;
+}
+#list span{ /* 자손 셀렉터 */
+	color : forestgreen;
+}
+h3:first-letter { /* 가상 클래스 셀렉터 */
+	color : red;
+}
+li:hover { /* 가상 클래스 셀렉터 */
+	background : yellowgreen;
+}
+</style>
+</head>
+<body class="main">
+<h3>Web Programming</h3>
+<hr>
+<div>  <!-- 하나의 strong에만 스타일을 주고싶은데, 구분이 div, li  임   -->
+	<div>2학기 <strong>학습 내용</strong>입니다.</div>
+	<ul id="list">
+ 		<li><span>HTML5</span></li>
+		<li><strong>CSS</strong></li>
+		<li>JAVASCRIPT</li>
+	</ul>
+	<div class="warning">60점 이하는 F</div>
+</div>
+</body>
+</html>
+
+<!--
+
+select에 대해서 함.
+
+
+1) 태그 이름 셀렉트
+
+ -->
