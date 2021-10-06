@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>write()를 잘못 사용하는 예</title>
+</head>
+<body onclick="document.write('<h3>클릭되었습니다</h3>')">  <!-- documnet가 다 끝난 시점에서 이걸 쓰면
+이전까지의 document가 싹 다 지워지고 이게 사용됨.
+즉, document가 이미 생성된 이후에는 ,추가가 따로 불가능함. -->
+<h3>write()를 잘못 사용하는 예</h3>
+<hr>
+<p>웹브라우저의 바탕 아무 곳이나
+     클릭해보세요.</p>
+</body>
+</html>
