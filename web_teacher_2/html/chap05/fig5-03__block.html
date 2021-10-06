@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>block</title>
+<style>
+div {
+	border : 1px solid yellowgreen;
+}
+span { /* span쪽은 기본적으로 옆으로 붙는데, 아래처럼 하면, */
+	display : block;  /* 디스플레이 속성으로 블락으로 준 순간, 블락으로 속성이 변경됨  -> 아래에 새로운 줄로 생성 */
+	background : powderblue;
+	border : 1px dotted orangered ;
+	width : 100px; height : 40px;
+}
+</style>
+</head>
+<body>
+<h3>&lt;span&gt;를 display:block으로</h3>
+<hr>
+<div><span>block span</span>과<span>block span</span>입니다.
+</div>
+</body>
+</html>

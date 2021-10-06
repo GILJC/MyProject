@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>relative 배치</title>
+<style>
+div {
+	display : inline-block;
+ 	background : red;
+ 	height : 50px;
+ 	width : 50px;
+ 	border: 1px solid lightgray;
+	color : white;
+	text-align : center
+}
+#down {
+    position : relative;
+    left : 20px;
+    top : 20px;
+   	background: green;
+}
+#up {
+    position : relative;  /* 상대 배치 방식 */
+    right : 20px;   /* 오른쪽에서 20px 띄어주고 */
+    bottom : 20px;   /* default로 들어갈 위치에서 얼만큼 띄어주기 */
+   	background : green;
+}
+</style></head>
+<body>
+<!-- <h3>상대 배치, relative</h3>
+<hr> -->
+<br><br>
+<div>T</div>
+<div id="down">h</div>
+<div >a</div>
+<div>n</div>
+<div id="up">k</div>
+<div>s</div>
+</body>
+</html>
