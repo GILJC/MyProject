@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 목록</title>
+    <style>
+        .cls1 {
+            text-decoration: none;
+        }
+        .cls2 {
+            text-align: center;
+            font-size: 30px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <table align="center" border="1" width="80%">
+        <thead> <!-- 테이블 헤드 -->
+            <tr height="10" align="center" bgcolor="lightgreen">
+                <th>글번호</th>
+                <th>작성자</th>
+                <th>제목</th>
+                <th>작성일</th>
+            </tr>
+        </thead>
+        <!-- 템플릿 렝기지 쓰는 방법 -->
+        <!-- noticeboard의 views.py 안의 context = {'article_list': article_list} 부분에서 -->
+        {% if article_list %}  <!-- article_list 키 이름으로 데이터가 존재하면 -->
+        <tbody>
+            {% for article in article_list %}   <!-- articel -> 하나의 게시물 -->
+                <tr align="center">  <!-- 글번호, 작성자, 제목, 작성일 -> 4개가 들어가야함 -->
+                    <!-- 1. 글번호 -->
+                    <td width="5%">{{forloop.counter}}</td> <!--횟수 숫자로 나오는 이곳의 특별한 문법-->
+                                   <!-- 중괄호 2번 쓰면 장고가, 아 얘는 변수구나 라고 인식함 -->
+                    <!-- 2. 작성자 -->
+                    <!-- article이 하나의 게시물이므로 -->
+                    <td width="10%">{{article.writeID}}</td>
+                    <!-- 3. 제목 -->
+                    <td align="left" width="35%">
+                        <span style="padding-right:30px"></span>
+                        <a class="cls1" href="{% url 'noticeboard:view' article.id %}">{{article.title}}</a><!-- 글제목 -->
+                    </td>
+                    <!-- 4. 작성일 -->
+                    <td width="10%">{{article.writeDate}}</td>
+                </tr>
+            {% endfor %}  <!-- 반드시 이게 들어감, 이 사이에 적어주면 됨 -->
+        </tbody>
+        {% else %}  <!-- 만약에 데이터가 없으면 -->
+        <tbody>
+            <tr height="10">
+                <td colspan="4">
+                    <p align="center">  <!-- <b>->bold=굵게 -->
+                        <b><span style="font-size:15pt;">등록된 글이 없습니다</span></b>
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+        {% endif %}
+        <!-- 이것은 주석 -->
+    </table>
+
+    <!-- table이 끝나는 이지점에 앵커테이블 하나 넣어줄거. -> 새글쓰기 누르면 바로 가게 만들것. -->
+    <!-- <a class="cls1" href="write"> <-  일일이 하나씩 다 넣어주면 나중에 못찾음 -->
+    <a class="cls1" href="{% url 'noticeboard:write_article' %}">
+        <!-- 콜론 기준으로 왼쪽은 noticeboard의 app_name = 'noticeboard', 오른쪽은     path('write', views.write_article, name='write_article') -->
+        <!-- 주소체계를 바꾸고싶으면  noticeboard/urls만 바꾸면 됨-->
+        <span class="cls2">글쓰기</span>
+    </a>
+</body>
+</html>
