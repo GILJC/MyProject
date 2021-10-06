@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>iframe을 이용한 신문 사이트</title></head>
+<body>
+<h3>2 개의 신문 사이트입니다.</h3>
+<hr>
+<iframe src="http://www.etnews.com" name="upper" width="300" height="300"></iframe>
+<iframe src="http://www.mk.co.kr" name="lower" width="300" height="300"></iframe>
+<!-- <iframe src="http://www.naver.com" name="lower" width="300" height="300"></iframe>
+  -> 네이버같은 경우는 iframe안에 들어가게 사이트 자체가 만들어짐 -> 해킹 방지 목적 -->
+<iframe src="http://www.mk.co.kr" name="lower" width="300" height="300"
+srcdoc="<html><head></head><body>hello</body></html>"></iframe>
+<!-- iframe 안에 소스코드를 직접 입력하면, 주소는 무시하고 안의 소스코드 내용을 직접 뿌리게 만들어짐 -->
+</body>
+</html>

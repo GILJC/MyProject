@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>버튼이 있는 입력 폼</title>
+</head>
+<body>
+<h3>버튼을 만들자</h3>
+<hr>
+<form>
+	검색: <input type="text" size="10" value="">
+		  <input type="button" value="Q1">
+		  <button type="button">Q2</button><br>
+	submit 버튼 : <input type="submit" value="전송1">
+				<button type="submit">전송2</button><br>
+	reset 버튼 : <input type="reset" value="리셋1">
+				<button type="reset">리셋2</button><br>
+	이미지버튼 : <input type="image" src="media/button.png" alt="이미지 버튼">
+				<button type="button"><img src="media/button.png" alt="이미지 버튼"></button>
+</form>
+</body>
+</html>
+
+<!-- Q1,2버튼은 입력시 반응을 설정 안해서 아무것도 안나옴,
+sumbmit 2개는 전송하는거라 누르면 껌뻑거림.
+rest버튼 : form태그 안의 모든 입력을 reset시켜줌.  -> 입력한 내용 다 지워준단 소리
+이미지버튼 : 버튼을 이미지로 한것. ->  얘도 누르면 서버에 뭔가를 전송한다는것.  (1번)
+(2번) 태그 안에 img태그를 넣으면 전송 안함 -> 꿈뻑거리지 않음.
+
++  버튼 타입도= 일반 버튼도 type="button"을 안해주면 default로 submit으로 동작하기에 꿈뻑거림.
+-->
