@@ -1,0 +1,17 @@
+package 설명, 생성할때
+py_package 사용.
+
+관련 내용은 폴더 안의 untitled.py 열어보면 나옴
+
+my_package -- roboadvisor -- analysis
+                             __init__.py
+                             series.py
+                             static.py
+                          -- crawling
+                             __init__.py
+                             parser.py
+                             scrap.py
+                          -- database
+                             __init__.py
+                             connection.py
+                             query.py
