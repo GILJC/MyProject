@@ -1,0 +1,13 @@
+
+
+tf.__version__
+
+# >>>
+'2.6.0'
+
+
+import sys
+print(sys.version)   # 파이썬 버전 확인
+
+# >>> 
+3.8.11 (default, Aug  6 2021, 09:57:55) [MSC v.1916 64 bit (AMD64)]
