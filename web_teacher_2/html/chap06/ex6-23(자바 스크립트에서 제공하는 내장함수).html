@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>자바스크립트 전역함수</title>
+<script>
+function evalParseIntIsNaN() {  //  함수 생성
+	let res = eval("2*3+4*6"); // res는 30
+	document.write("eval(\"2*3+4*6\")는 " + res + "<br>");
+	let m = parseInt("32");
+	document.write("parseInt(\"32\")는 " + m + "<br>");
+	let n = parseInt("0x32");
+	document.write("parseInt(\"0x32\")는 " + n + "<br><br>");
+
+	// parseInt는 얘들이 제공하는 함수고,
+	// Number는 Number 객체를 이용해 number를 만드는 클래스.  <-  클래스 맞나. 암튼.
+
+	// "hello"는 정수로 변환할 수 없으므로 parseInt("hello")는 NaN 리턴
+	n = parseInt("hello");
+	if(isNaN(n)) // true
+		document.write("hello는 숫자가 아닙니다.");
+}
+</script>
+</head>
+<body>
+<h3>eval(), parseInt(), isNaN()</h3>
+<hr>
+<script>
+	evalParseIntIsNaN();  // 함수 출력.
+</script>
+</body>
+</html>

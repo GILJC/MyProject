@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트</title>
+<script>
+// 이런것도 햇갈림
+alert('2' > 1);       //  true
+alert('01' == 1);     //  true  -> (true == ture)
+alert(true == 1);     //  true
+alert(false == 0);    //  true
+let a = 0;
+alert(Boolean(a));    //  false
+let b = '0';
+alert(Boolean(b));    //  true  -> 문자열 들어가면 true (0이 아닌값은 true)
+// 이놈이 햇갈림.
+// 하나라도 숫자라면 -> 문자(다른 한놈)를 숫자로 바꿔버림. 그래서 true
+alert(a == b);        //  true
+</script>
+</head>
+<body>
+
+
+</body>
+
+</html>

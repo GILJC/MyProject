@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트</title>
+<script>
+  let userName = 'John';
+  function showMessage() {
+    var message = "Hello" + userName;  //  let으로 하나 var로 하나 똑같아 보임.
+    {
+      var message2 = "world";   // 근데
+    }
+    alert(message);
+    alert(message2);    // 위의 지역변수를 var로 하고 이렇게 외부에서 출력하면, 출력이  됨.
+  }   //  let으로 쓰면 자바처럼 자기 안에서 써지지만, var로 쓰면, 범위가 자기 함수(function())까지 넓어짐 -> 그래서 출력됨
+  // 그래서 6버전부턴, var를 쓰지 말고 let을 쓰자고 정함. ( 쓸 수 는 있음 -> 하지만 쓰지 말 것.)
+  showMessage();
+  // 바깥에서 local변수로 접속하면 이렇게 씀
+  alert(message);   // 이러면 안뜸. -> message is not defined
+</script>
+</head>
+<body>
+
+</body>
+</html>

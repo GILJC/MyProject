@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이벤트 리스너 속성에 자바스크립트 코드</title>
+<script>
+// ex6-01.html 을 JavaScript론 이렇게 표시함.
+// 마우스가 들어올 때, 나갈 때, 이미지가 바뀜. 을 함수로 표시
+function over(obj) {
+	obj.src="media/banana.png";
+}
+function out(obj) {
+	obj.src="media/apple.png"
+}
+// 펑션, 함수 이름, 뭔가를 받음
+</script>
+</head>
+<body>
+<h3>마우스 올려 보세요</h3>
+<hr>
+<img src="media/apple.png" alt="이미지"
+		onmouseover="over(this)"
+		onmouseout="out(this)">
+</body>
+</html>

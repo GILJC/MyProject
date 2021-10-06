@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<!-- 글자 깨지는 이유는 charset 아해줘서 그럼
+이거 써주면 됨-->
+<head>
+  <meta charset="utf-8">
+  <title>자바스크립트</title>
+<!-- 스크립트 태그 -> 어디든지 올 수 있지만, 바디나, 헤드 안에 넣어줌 보통.
+-> 보통 헤드 안에 넣어줌
+-->
+  <!-- 옛날에는 type="text/javascript" 써줬는데
+  요즘은 타입 생략하면 무조건 자바스크립트임.-->
+  <!--  <script type="text/javascript">  -->
+    <script>
+      alert( 'Hello, world!' );
+      alert( 'world!' );  /* 세미콜론으로 구분 */
+      /* JS에서 변수 선언할떄는 let -> 값을 할당 가능  */
+      let message;
+      message = 'Hello';
+      alert(message)
+
+      let name = 'John';
+      alert('hello')
+      alert("world")  /* 싱글, 더블 다 먹음 */
+
+      alert(`hello`)  /* 백틱(backtick) 인데, 얘는 특별한 의미가 있음.  그냥 똑같아보이지만 다름*/
+      alert(`hello, ${name}`) // backtick을 쓰면, 변수를 넣을 수 있음.
+      alert(`result is ${1 * 2}`)// 연산 가능
+
+      /*  let message-go;  <-  변수 이름에 마이너스(-) 못붙임. 언더바는 가능  */
+
+      /* 6버전 이전에는 var라고 쓰는 경우가 있음. -> 그런데 var 쓰면 문제가 생기는 경우가 있음. 지금은 설명 안함.
+      ->  지금은 let을 씀 */
+    </script>
+
+
+</head>
+
+<body>
+
+
+</body>
+
+</html>

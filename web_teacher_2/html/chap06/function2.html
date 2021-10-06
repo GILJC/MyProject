@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트</title>
+<script>
+// function sayHi {
+// alert("Hello");
+// }
+// 함수 선언할때는 세미콜론; 없어도 되지만(?)
+function sayHi() {
+  alert( "Hello" );
+};  // 함수 할당할때는,  끝에 세미콜론; 넣어주는게 맞음
+sayHi();
+let func = sayHi;   //  심지어 이래도 됨
+func();
+// 만약 함수 이름만 주면? 괄호 열고닫고 앖이.
+alert(func)
+// 자바스크립트에서 함수 이름만 넣으면 -> 소스코드가 튀어나옴
+</script>
+</head>
+<body>
+
+</body>
+</html>
