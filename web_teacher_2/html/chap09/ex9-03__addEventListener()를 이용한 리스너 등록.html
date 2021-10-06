@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>addEventListener()를 이용한 리스너 등록</title>
+<script>
+	let p;
+	function init() { // 문서가 완전히 로드되었을 때 호출
+		p = document.querySelector("#p");
+		p.addEventListener("mouseover", over); // 이벤트 리스너 등록
+		p.addEventListener("mouseout", out); // 이벤트  리스너 등록
+		// add리스터 만드는 이 : 1종류의 이벤트에 대해서 1종류의 동작밖에 못함.
+		// 근데 add이벤트리스터 를 사용하면 1종류의 이벤트에 대해 여러 종류의 동작 등록 가능.
+		// -> 멀티로 '함수''를 계속 등록시킬 수 있음.
+		// -> 순서대로 실행됨 -> 멀티 등록 가능
+		//  -> 하나 또 있는데, 그건 나중에 설명
+	}
+	function over() {
+		p.style.backgroundColor="orchid";
+	}
+	function out() {
+		p.style.backgroundColor="white";
+	}
+</script>
+</head>
+<body onload="init()">
+	<h3>addEventListener()를 이용한 리스너 등록</h3>
+	<hr>
+	<p id="p">마우스 올리면 orchid 색으로 변경</p>
+</body>
+</html>

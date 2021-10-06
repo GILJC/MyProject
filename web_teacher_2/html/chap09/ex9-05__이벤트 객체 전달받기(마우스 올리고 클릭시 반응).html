@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이벤트 객체 전달받기</title>
+</head>
+<body>
+<p id="p">마우스를 올려 보세요</p>
+<button onclick="f(event)">클릭하세요</button>    <!-- onclick -> 마우스 클릭할때 반응.(이벤트 리스너) = 함수 등록 )-->
+<!--  -> 여기는 반드시 (event)라고 등록등 해줘야 함. 위에서 event라고 써있는걸 읽어서 실행하기 때문. -> 다른 변수(evn등)
+쓰면 못 읽음 -->
+<script>
+function f(e) { // e는 현재 발생한 이벤트 객체
+	alert(e.type); // 이벤트 종류 출력
+}
+
+document.querySelector("#p").onmouseover = f;  // 마우스 올라왔을때, 얘를 등록시킴.  -> 함수 등록
+</script>
+</body>
+</html>
