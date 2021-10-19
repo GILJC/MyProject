@@ -1,0 +1,1 @@
+set global log_bin_trust_function_creators = 1;  # root에서 실행시켜줌

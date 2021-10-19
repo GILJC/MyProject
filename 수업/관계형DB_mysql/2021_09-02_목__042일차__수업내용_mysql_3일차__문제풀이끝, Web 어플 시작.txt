@@ -1,0 +1,80 @@
+-- 14. 총 지불 금액별 고객 등급을 출력하고자 한다. 등급 구분과 출력 컬럼은 다음과 같다.(case 문 사용)
+-- 'A' : 총 지불금액이 200 이상
+-- 'B' : 총 지불금액이 200 미만 100 이상
+-- 'C' : 총 지불금액이 100 미만 고객
+-- 고객의 customer_id, first_name, last_name, 총 지불금액, 등급
+-- 출력 순서는 총 지불금액이 많은 고객부터 출력      (결과의 row 수는 전과 똑같을 것이다 = 599)
+
+
+# 정답
+select CS.customer_id, CS.first_name, CS.last_name,
+		sum(PM.amount),
+		case when (sum(PM.amount) >= 200) then 'A'
+			when (sum(PM.amount) >= 100) then 'B'
+		else 'C'
+        end as customer_grade
+from payment PM join customer CS
+on PM.customer_id = CS.customer_id
+group by CS.customer_id, CS.first_name, CS.last_name
+order by sum(PM.amount) desc;
+
+
+
+-- 18
+
+# 날짜 계산(반납일 - 빌린 날)
+select t1.stst_date, timestampdiff(day, t1.stst_date, curdate()) as diff_day
+
+
+
+
+
+
+---------------
+
+
+
+클라이언트  - - -  웹 서버    - - - WAS(웹 어플리케이션 서버)  - - -  DB
+
+		NGINX		java : tomcat, web sphire
+				python : uWISG, gunioon
+
+				JAVA : Spring (웹 어플리케이션을 쉽게 짤 수 있게 도와주는 framework)
+				Python: Django
+
+
+
+
+웹 어플리케이션 짤때, 각가 중구난방으로 짜면 합칠때 힘듬
+-> 확실히 나눠서 짜야 유지보수가 편함 (Design Pattern)
+  - >  Model,  View,    Controller		<-  Spring(MVC)
+        로직,    html,    접속 요청, 응답
+( 컨트롤러 바꾼다고 모델이나 뷰 부분이 바뀔 필요가 없어여 한다)
+
+
+       Model,    template,   View		<- Django (MVT)
+
+
+
+
+
+web page
+
+1. html
+
+
+2. CSS
+
+
+3. Java Script
+
+
+
+
+
+
+
+
+<!DOCTYPE html>    ->  이분분이 나오면 html 5 이상이라는 소리 -> 5 이전엔 이게 없었음
+<html> 
+
