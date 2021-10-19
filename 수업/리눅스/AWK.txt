@@ -1,0 +1,232 @@
+[][][][][][][] AWK [][][][][][][][][]
+
+home
+
+cd source/script
+
+vi awkfile
+
+---awkfile
+James	Dean	176 1974/10/24	2345687
+Matt	Daemon	171 1980/04/02	2323872
+Kate	Moss	179 1975/05/21	2187461
+Harrison	Ford	183 1965/08/12	2398381
+----------------------
+
+[gil@script]awk '{print $0}' awkfile	 #  $0  ->  라인 전체
+James   Dean    176 1974/10/24  2345687
+Matt    Daemon  171 1980/04/02  2323872
+Kate    Moss    179 1975/05/21  2187461
+Harrison        Ford    183 1965/08/12  2398381
+------------
+awk 스크립트 언어
+awkfile 을 읽어서 라인 전체를 출력하라
+
+$1  -> 첫번째 컬럼
+$2  -> 2번째 컬럼
+
+[gil@script]awk '{print $1}' awkfile
+James
+Matt
+Kate
+Harrison
+
+[gil@script]awk '{print $2}' awkfile
+Dean
+Daemon
+Moss
+Ford
+
+
+----------
+이 단어가 포함된 라인을 골라내라
+
+awk '/Moss/' awkfile
+
+[gil@script]awk '/Moss/' awkfile
+Kate    Moss    179 1975/05/21  2187461
+
+
+---------------
+at란 문자가 들어있는 라인을 찾아서 print해라 -> 어떻게? -> \t 텝을 하고, Good Morning, 하고 -> $1, $2 출력하라 / awkfile에서
+
+[gil@script]awk '/at/{print "\tGood Morning, " $1, $2}' awkfile
+        Good Morning, Matt Daemon
+        Good Morning, Kate Moss
+
+내용을 찾고, 편집, 조작해서 출력할 수도 있음.
+
+----------------
+
+%-20  ->  20칸 문자를 잡아서 왼쪽정렬
+
+%4d\n  ->  4자리 정수로 쓰고, 한칸 띄움
+
+[gil@script]awk '{printf "The name is %-20s Height is %4d\n", $1" "$2, $3}' awkfile
+The name is James Dean           Height is  176
+The name is Matt Daemon          Height is  171
+The name is Kate Moss            Height is  179
+The name is Harrison Ford        Height is  183
+
+-------------------
+
+
+
+
+스타트가 d인놈 찍기
+[gil@etc]ls -l | awk '/^[d]/{print $0}'
+drwxr-xr-x  7 root root    4096  8월 19 19:41 NetworkManager
+drwxr-xr-x  2 root root    4096  8월 19 19:41 PackageKit
+drwxr-xr-x  2 root root    4096  8월 19 19:40 UPower
+drwxr-xr-x 11 root root    4096  8월 19 19:42 X11
+
+[gil@etc]ls -l | awk '/^[^d]/{print $0}'
+합계 1100
+-rw-r--r--  1 root root    3028  8월 19 19:29 adduser.conf
+-rw-r--r--  1 root root     401  7월 17  2019 anacrontab
+-rw-r--r--  1 root root     433 10월  2  2017 apg.conf
+
+스타트가 l인놈 찍기 (?)  ->  link 파일만 찍기
+ls -l | awk '/^[l]/{print $0}'
+
+
+일반 파일만 찍기
+[gil@etc]ls -l | awk '/^[-]/{print $0}'
+-rw-r--r--  1 root root    3028  8월 19 19:29 adduser.conf
+-rw-r--r--  1 root root     401  7월 17  2019 anacrontab
+-rw-r--r--  1 root root     433 10월  2  2017 apg.conf
+
+
+
+[gil@etc]ls -l | wc -l
+225
+
+워드카운트. 라인의 갯수
+
+
+
+[gil@etc]ls -l | awk '/^[-]/{print $0}' | wc -l
+91
+-> 일반 파일의 라인 갯수?
+
+
+
+가장 최근에 변경된 파일을 찾고 싶을 때,
+역으로 (reverse)로 sorting하면 됨
+r 을 붙여주면 가장 최근파일이 제일 아래에 나옴 (목록이 많을때, 가장 최근 파일 보고 싶을 때)
+
+ls -lrt
+
+
+
+
+명령어 옵션 까먹었을때 -> 메뉴얼 보면 됨
+ex)  man ls  -> ls의 메뉴얼 = 각종 옵션 들 나옴
+(q 하면 빠져나옴)
+
+
+
+cd ~/source/script
+
+
+ls -l | awk 'BEGIN{print"<sum of files>"}{sum+=$5}END{print sum}'
+BEGIN  ->  최초로 하라 -> 최초로 뭘 할거냐
+sum+=$5  ->  sum이라는 변수에 계속 5번째 칼럼 값을 누적하라
+END,  마지막에 print sum을 찍어라
+
+[gil@script]ls -l | awk 'BEGIN{print"<sum of files>"}{sum+=$5}END{print sum}'
+<sum of files>
+5162
+
+
+---
+sum이 아니라 평균 찍어라.
+[gil@script]ls -l | awk 'BEGIN{print"<sum of files>"}{sum+=$5}END{print sum/NR}'
+<sum of files>
+368.714
+
+총합이 아니라 평균 = 갯수로 나눠야,
+마지막 라인번호 = 전체 갯수
+
+
+
+이것들을 파일로 만들기
+
+vi awk-script
+---awk-script
+BEGIN{print"<sum of files>"}
+{sum+=$5}
+END{print sum/NR}
+
+
+이렇게 보기 좋게 짤 수도 있음
+
+
+라인을 붙이고 싶을때,
+J
+붙이고 싶은 라인에 커서들 두고  J(대문자) 입력하면 붙음
+BEGIN{print"<sum of files>"} {sum+=$5} END{print sum/NR}
+대신 1칸이 띄어짐
+
+
+
+
+ls -l | awk -f awk-script
+
+복잡한 스크립트는 파일로 짠 다음에 파일로 불러오면 된다.
+
+[gil@script]vi awk-script
+[gil@script]ls -l | awk -f awk-script
+<sum of files>
+347.933
+
+
+
+---
+vi 명령어
+
+물결 (~)  로 통과시키면
+대문자는 소문자로 , 소문자는 대문자로
+변경 됨
+
+then  --( ~ )->  THEN
+Usage	        uSAGE
+
+
+----
+
+(기타)
+
+PATH에 걸려있는것중에 다음을 찾는 것
+
+which python3
+
+[gil@script]which python3
+/usr/bin/python3
+
+ (Path에 안걸려있으면 찾을 수 없음)
+
+
+----
+
+[참고..] python3은 미리 깔려있음.
+
+[gil@script]python3
+Python 3.8.10 (default, Sep 28 2021, 16:10:42)
+[GCC 9.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> quit()
+
+[gil@script]
+
+
+
+
+
+
+
+
+
+
+
+

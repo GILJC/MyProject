@@ -1,0 +1,125 @@
+[gil@~]cd /media/sf_Linux-share/
+
+
+
+
+원래 위치
+[윈도우에서 공유폴더 만듬]
+D:\GIL_1_sub\Linux-share
+여기였는데,
+재부팅하니까 안잡히고, 항상 공유폴더 설정 체크하니까,
+위에서 잡히는걸로 되어있음.
+-------------------------
+
+
+공유폴더 설정 방법
+
+
+--------------------------
+
+작업폴더 만듬
+/home(=gil) 에서
+mkdir work
+
+일반적으로 외장 ~~를 붙일 땐
+/mnt 에 붙임
+
+
+[윈도우에서 공유폴더 만듬]
+D:\GIL_1_sub\Linux-share
+
+마운트 설정
+vbox 관리 -> 설정 -> 우측, 공유 폴더 -> 오른쪽 +(=공유 추가)
+-> 폴더 경로 : 위의 윈도우 폴더 => D:\GIL_1_sub\Linux-share
+[아래 자동 마운트(A)에 체크 선택]
+-> 마운트 지점: /mnt/share
+[확인] 버튼으로 완료
+(windows 내에서의 폴더 이름과 ubuntu에서의 폴더 이름이 같을 필요는 전혀 없다)
+
+완료했으면 우분투 재시작
+-> reboot
+
+윈도우 터미널 접속종료됐으니 다시 접속
+ssh gil@localhost -p 2200
+1
+
+cd /mnt
+ls -l
+(여기서 share 폴더 확인 가능)
+근데 cd share하면 허가 거부로 접속 안됨
+
+
+sudo usermod -G vboxsf -a gil
+vboxsf 계정을 append 해주겠다, 내 게정(gil)에
+1
+
+append 해줬으면 한번 더 reboot
+sudo reboot
+
+로그인하고
+cd /mnt/share
+하면 들어가짐
+
+()()()()()
+(설정에서 항상 사용 해주면 항상 설정 되어있음)
+
+(허가 거부일때)
+[gil@~]cd /mnt/share
+-bash: cd: /mnt/share: 허가 거부
+[gil@~]sudo chmod 775 /mnt/share/
+
+
+cd /mnt/share로 이동
+해야하는데,  마운트 자동으로 하니까
+/media/sf머시기 폴더에 마운트됨
+
+[gil@~]cd /media/sf_Linux-share/
+[gil@sf_Linux-share]ls
+ protobuf-2.5.0.tar.gz  'test(hadoop_setting_original=before_fix).xml'   test.xml
+
+()()()()()
+
+(마운트 위치를 /mnt/share 로 하니까 허가 거부 안뜬다고 함)
+
+()()()()()()
+
+sudo usermod -G vboxsf -a 계정
+(이거 해야지 공유폴더 접근 가능하다는데)
+
+()()()()
+
+
+===========================
+window와 ubuntu의 공유폴더 생성 완성
+===========================
+
+윈도우에서
+업로드한 파일
+test.xml
+다운 받고
+
+D:\GIL_1_sub\Linux-share
+로 이동
+
+터미널에서
+ls -l 하면 보임
+
+mv test.xml ~/work
+로 이동
+
+ubuntu에서
+cd work
+sudo vi test.xml
+
+
+:g/(Ctrl누른 상태에서vm)/s//g
+(  :g/^M/s//g  )  <- 이렇게 됨
+엔터
+
+저장하고 나옴
+:wq
+
+(우분투 역할은 다함)
+
+
+-----------------

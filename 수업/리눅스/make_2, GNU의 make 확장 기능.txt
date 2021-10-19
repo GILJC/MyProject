@@ -1,0 +1,310 @@
+-------------------------------------------GNU  make의 확장 기능
+vi Makefile 열고
+
+cal_main:   int_add.o cal_main.o
+    gcc -o $@ int_add.o cal_main.o  <-  $@  <- 현재 단계에서의 target을 굳이 안쓰고 $@로 대체한 것
+
+%.o:  %.c
+    gcc -c $<
+
+clean:
+    rm cal_main cal_main.o int_add.o
+
+all:    cal_main
+
+---
+  $@  <- 현재 단계에서의 target을 굳이 안쓰고 $@로 대체한 것
+---
+
+cal_main:   int_add.o cal_main.o
+    gcc -o cal_main int_add.o cal_main.o  ->  gcc -o $@ int_add.o cal_main.o
+변경한것.
+
+-------
+vi 문법,..
+C -> 현재 커서부터 라인의 끝까지 싸그리 바꿔버리겠다
+
+$<   ->   날짜가 최신인놈을 바꿔버리겠다.
+
+($< : 타겟을 생성하기 위해 가장 왼쪽에 기술된 첫번째 오브젝트)
+
+--- --- ---
+
+일반적으로 리눅스의 touch 명렁어는 빈 파일을 작성하거나
+
+파일의 타임스탬프를 변경하는 용도로 사용한다.
+
+--- --- ---
+[gil@c-language]touch *.c
+[gil@c-language]ls -l
+합계 40
+-rw-rw-r-- 1 gil gil   191 10월 15 14:54 Makefile
+-rwxrwxr-x 1 gil gil 16768 10월 15 14:44 cal_main
+-rw-rw-r-- 1 gil gil   170 10월 15 14:54 cal_main.c
+-rw-rw-r-- 1 gil gil  1784 10월 15 14:44 cal_main.o
+-rw-rw-r-- 1 gil gil    51 10월 15 14:54 int_add.c
+-rw-rw-r-- 1 gil gil  1384 10월 15 14:44 int_add.o
+
+[gil@c-language]make
+gcc -c int_add.c
+gcc -c cal_main.c
+gcc -o cal_main int_add.o cal_main.o
+
+[gil@c-language]ls -l
+합계 40
+-rw-rw-r-- 1 gil gil   191 10월 15 14:54 Makefile
+-rwxrwxr-x 1 gil gil 16768 10월 15 14:54 cal_main
+-rw-rw-r-- 1 gil gil   170 10월 15 14:54 cal_main.c
+-rw-rw-r-- 1 gil gil  1784 10월 15 14:54 cal_main.o
+-rw-rw-r-- 1 gil gil    51 10월 15 14:54 int_add.c
+-rw-rw-r-- 1 gil gil  1384 10월 15 14:54 int_add.o
+
+[gil@c-language]
+
+---------
+int_add.o:  int_add.c
+    gcc -c $<
+
+cal_main.o: cal_main.c
+    gcc -c $<
+
+( ->  change word  (cw) -> % )
+
+%.o:  %.c
+    gcc -c $<
+
+로 바꿈.
+
+이러면 
+소스코드 파일이 수백가지라도
+1줄로 정리가 됨
+= 한번에 다 바꿔줌
+
+[gil@c-language]make clean
+rm cal_main cal_main.o int_add.o
+[gil@c-language]make all
+gcc -c int_add.c
+gcc -c cal_main.c
+gcc -o cal_main int_add.o cal_main.o
+[gil@c-language]ls -l
+합계 40
+-rw-rw-r-- 1 gil gil   179 10월 15 15:12 Makefile
+-rwxrwxr-x 1 gil gil 16768 10월 15 15:12 cal_main
+-rw-rw-r-- 1 gil gil   170 10월 15 14:54 cal_main.c
+-rw-rw-r-- 1 gil gil  1784 10월 15 15:12 cal_main.o
+-rw-rw-r-- 1 gil gil    51 10월 15 14:54 int_add.c
+-rw-rw-r-- 1 gil gil  1384 10월 15 15:12 int_add.o
+[gil@c-language]
+
+
+--------------------------------
+
+vi ~/.bashrc
+맨 아랫줄()에 다음 추가
+set -o vi
+
+=
+PS1="[\u@\W]"
+set -o vi
+
+(:1 -> 첫째줄로 이동)
+
+
+[gil@c-language]source ~/.bashrc
+로 적용
+(참고)
+( . ~/.bashrc   로도 적용 가능. 같은 뜻 )
+
+
+-----------------------------------
+
+vi Makefile
+
+소스파일이 늘면,  Makefile 의 소스코드가  게속 늘어남
+간단히 하는 방법 -> 변수를 쓰면 됨
+
+맨 윗줄에 변수 추가(O) , (o는 아랫줄에 추가)
+
+cal_main:   int_add.o cal_main.o
+    gcc -o $@ int_add.o cal_main.o
+
+%.o:  %.c
+    gcc -c $<
+
+clean:
+    rm cal_main cal_main.o int_add.o
+
+all:    cal_main
+
+에서 변경
+->
+OBJS=int_add.o cal_main.o
+
+cal_main:   $(OBJS)
+    gcc -o $@ $(OBJS)   <-  $@  -> 이놈은 cal_main 을 의미함
+
+%.o:  %.c
+    gcc -c $<
+
+clean:
+    rm cal_main $(OBJS)
+
+all:    cal_main
+
+
+(C로 뒷줄 전부 변경 -> $(OBJS) 추가 -> 점(.) 으로 방금 입력한거 그대로 입력 가능)
+
+[gil@c-language]make clean
+rm cal_main int_add.o cal_main.o
+
+[gil@c-language]make all
+gcc -c int_add.c
+gcc -c cal_main.c
+gcc -o cal_main int_add.o cal_main.o
+
+[gil@c-language]
+
+
+
+++++
+----------
+이상태에서 이스케이프를 한번만 눌러줌 -> vi모드로 들어간거 (화면 변화는 없지만..)
+-> /vi M  -> 라고 치면 -> vi Makefile  -> 을 찾아줌  -> enter 치면 들어감..
+-----------
+
+vi Makefile
+
+OBJS=int_add.o cal_main.o
+
+cal_main:   $(OBJS)
+    gcc -o $@ $(OBJS)
+
+%.o:  %.c
+    gcc -c $<
+
+clean:
+    rm cal_main $(OBJS)
+
+all:    cal_main
+
+
+---->  에서 변경
+OBJS=int_add.o cal_main.o
+TARGET=cal_main
+
+$(TARGET):   $(OBJS)
+    gcc -o $@ $(OBJS)
+
+%.o:  %.c
+    gcc -c $<
+
+clean:
+    rm $(TARGET) $(OBJS)
+
+all:    $(TARGET)
+
+-----------------------------------
+[gil@c-language]make clean
+rm cal_main int_add.o cal_main.o
+
+[gil@c-language]make all
+gcc -c int_add.c
+gcc -c cal_main.c
+gcc -o cal_main int_add.o cal_main.o
+
+[gil@c-language]
+
+
+-----------------------------------
+vi Makefile
+여기서 -o  -> 옵션도 변수처리 할 것
+
+OBJS=int_add.o cal_main.o
+TARGET=cal_main
+
+$(TARGET):   $(OBJS)
+    gcc -o $@ $(OBJS)
+
+%.o:  %.c
+    gcc -c $<
+
+clean:
+    rm $(TARGET) $(OBJS)
+
+all:    $(TARGET)
+
+---> 변경
+
+OBJS=int_add.o cal_main.o
+TARGET=cal_main
+OFLAGS=-o
+CFLAGS=-c
+CC=gcc  
+( 이것 추가 )  =  여기까진 보통 많이들 함
+
+===> 변경 완성본
+OBJS=int_add.o cal_main.o
+TARGET=cal_main
+OFLAGS=-o
+CFLAGS=-c
+CC=gcc
+
+$(TARGET):   $(OBJS)
+    $(CC) $(OFLAGS) $@ $(OBJS)
+
+%.o:  %.c
+    $(CC) $(CFLAGS) $<
+
+clean:
+    rm $(TARGET) $(OBJS)
+
+all:    $(TARGET)
+
+(-c, -o gcc  부분을 변수로 변경  -> 나중에 변수만 바꾸면 알아서 다 바뀌기 때문에 편함)
+
+
+
+실제로 Makefile 받으면 다 이런식으로 되어있음.
+나중에 하둡 설치할때, Makefile 볼때 있음,
+-----------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# This is variable test
+
+VAR1="Hello, world!"
+echo $VAR1
+
+-------------------  단순 문자열 출력

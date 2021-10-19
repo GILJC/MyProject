@@ -1,0 +1,250 @@
+
+mkdir c-language
+폴더 만듬
+cd c-language
+
+------------------------
+---int_add.c
+int int_add(int a, int b)
+{
+    return a + b;
+}
+------------------------
+
+---cal_main.c
+#include <stdio.h>
+
+extern int_add(int, int);    <-  외부 파일에 이런 함수가 있다, 라고 이런식으로 알려줘야 함
+int main(void)
+{
+    int num1 = 10, num2 = 30;
+
+    printf("num1 + num2 = %d\n", int_add(num1, num2));
+
+    return 0;
+}
+------------------------
+
+[gil@c-language]gcc -c int_add.c
+[gil@c-language]gcc -c cal_main.c
+[gil@c-language]ls -l
+합계 16
+-rw-rw-r-- 1 gil gil  170 10월 15 14:10 cal_main.c
+-rw-rw-r-- 1 gil gil 1784 10월 15 14:15 cal_main.o
+-rw-rw-r-- 1 gil gil   51 10월 15 14:06 int_add.c
+-rw-rw-r-- 1 gil gil 1384 10월 15 14:15 int_add.o
+[gil@c-language]
+
+
+
+-> 이러면 .o 파일이 생김 -> object 파일
+
+실행파일명을 먼저 적고(cal_main이라고 할거임), 2개를 입력으로 받을거임
+
+그러면 녹색파일이름이 생김
+[gil@c-language]gcc -o cal_main int_add.o cal_main.o
+[gil@c-language]ls -l
+합계 36
+-rwxrwxr-x 1 gil gil 16768 10월 15 14:17 cal_main  <- 요놈
+-rw-rw-r-- 1 gil gil   170 10월 15 14:10 cal_main.c
+-rw-rw-r-- 1 gil gil  1784 10월 15 14:15 cal_main.o
+-rw-rw-r-- 1 gil gil    51 10월 15 14:06 int_add.c
+-rw-rw-r-- 1 gil gil  1384 10월 15 14:15 int_add.o
+[gil@c-language]
+
+-> c언어 소스를 링킹해서 실행파일로 만드는 방법
+
+[gil@c-language]./cal_main
+num1 + num2 = 40
+[gil@c-language]
+
+
+
+--------
+소스가 50개 되면 일일이 컴파일, 묶을 순 없다.
+이걸 자동화 하는게
+->
+make
+임
+
+make 유틸리티는 설정 파일이 있어야함 -> 어떻게 할건지 설정을 해줘야함
+1. makefile
+2. Makefile
+
+2개가 있는데, 뭘 쓸지는 취향의 문제.
+하나만 있으면 되는데, 둘 다 있으면 안됨..
+
+make 설정 파일은 소스 안에 섞여있게 되는데,,
+Makefile로 만들면 <- 대문자가 구분이 잘되서 이걸 선호함,.
+
+
+---
+
+강제로 다른 이름으로 해서 읽을 순 있는데ㅡ,
+-f 옵션을 줘야함
+-f 옵션을 안주면 기본적으로 먹는게  Makefile
+
+vi Makefile
+---Makefile
+cal_main:   int_add.o cal_main.o
+    gcc -o cal_main int_add.o cal_main.o
+
+int_add.o:  int_add.c
+    gcc -c int_add.c
+
+cal_main.o: cal_main.c
+    gcc -c cal_main.c
+------------------------
+------------------------
+
+콜론(:) 앞의 놈(cal_main) -> target
+ "       뒤  "  	       -> source
+gcc~~ 로 만든다.
+..
+int_add.o는 int_add.c 로 만든다
+gcc -c int _add.c  의 방식으로
+
+------------------------
+
+.o 파일, cal_main 날림
+
+rm *.o
+
+-rwxrwxr-x 1 gil gil 16768 10월 15 14:17 cal_main
+-rw-rw-r-- 1 gil gil   170 10월 15 14:10 cal_main.c
+-rw-rw-r-- 1 gil gil  1784 10월 15 14:15 cal_main.o
+-rw-rw-r-- 1 gil gil    51 10월 15 14:06 int_add.c
+-rw-rw-r-- 1 gil gil  1384 10월 15 14:15 int_add.o
+[gil@c-language]./cal_main
+num1 + num2 = 40
+[gil@c-language]vi Makefile
+[gil@c-language]rm *.o
+[gil@c-language]rm cal_main
+[gil@c-language]ls -l
+합계 12
+-rw-rw-r-- 1 gil gil 164 10월 15 14:25 Makefile
+-rw-rw-r-- 1 gil gil 170 10월 15 14:10 cal_main.c
+-rw-rw-r-- 1 gil gil  51 10월 15 14:06 int_add.c
+[gil@c-language]
+
+
+make -f 파일명 <- 을 주던가
+
+make 하면 됨
+
+!!!!!!
+[gil@c-language]vi ~/.vimrc
+열어서 
+set expandtab -> 날림
+>>>
+set cindent
+set tabstop=4
+set shiftwidth=4
+colorscheme koehler
+
+---
+vi Makefile
+
+열어서 앞의 빈칸 4개 지우고 tab으로 교체
+>>>
+cal_main:   int_add.o cal_main.o
+    gcc -o cal_main int_add.o cal_main.o
+
+int_add.o:  int_add.c
+    gcc -c int_add.c
+
+cal_main.o: cal_main.c
+    gcc -c cal_main.c
+
+:wq 저장
+
+----
+[gil@c-language]make
+gcc -c int_add.c
+gcc -c cal_main.c
+gcc -o cal_main int_add.o cal_main.o
+[gil@c-language]
+
+잘 실행됨
+
+
+-> 실행 체크해서 바뀐놈만 업데이트해줌
+안바뀐놈은 냅둠
+
+make: 'cal_main'은(는) 이미 업데이트되었습니다.
+[gil@c-language]
+
+파일이 몇십, 몇백개쯤 되면,
+사람 손으로 일일이 찾아서 하기 어려움.  -> 자동화  -> 이래서 make 쓰는 것
+
+
+[gil@c-language]./cal_main
+num1 + num2 = 40
+[gil@c-language]
+
+------------------------
+코딩 하다보면
+싸그리 깨끗하게 전체를 build 하고 싶을때가 있음.
+
+.o파일이 실행파일보다 나중에 생긴것.
+
+
+vi Makefile
+파일 열어서
+다음 추가
+
+clean:
+    rm cal_main cal_main.o int_add.o
+
+그러면 다음과 같이
+
+[gil@c-language]vi Makefile
+[gil@c-language]ls -l
+합계 40
+-rw-rw-r-- 1 gil gil   197 10월 15 14:37 Makefile
+-rwxrwxr-x 1 gil gil 16768 10월 15 14:30 cal_main
+-rw-rw-r-- 1 gil gil   170 10월 15 14:10 cal_main.c
+-rw-rw-r-- 1 gil gil  1784 10월 15 14:30 cal_main.o
+-rw-rw-r-- 1 gil gil    51 10월 15 14:06 int_add.c
+-rw-rw-r-- 1 gil gil  1384 10월 15 14:30 int_add.o
+[gil@c-language]make clean   <-  clean에 지정한 파일들 삭제
+rm cal_main cal_main.o int_add.o
+[gil@c-language]ls -l
+합계 12
+-rw-rw-r-- 1 gil gil 197 10월 15 14:37 Makefile
+-rw-rw-r-- 1 gil gil 170 10월 15 14:10 cal_main.c
+-rw-rw-r-- 1 gil gil  51 10월 15 14:06 int_add.c
+[gil@c-language]make   <-  다시 make 함
+gcc -c int_add.c
+gcc -c cal_main.c
+gcc -o cal_main int_add.o cal_main.o
+[gil@c-language]ls -l
+합계 40
+-rw-rw-r-- 1 gil gil   197 10월 15 14:37 Makefile
+-rwxrwxr-x 1 gil gil 16768 10월 15 14:38 cal_main
+-rw-rw-r-- 1 gil gil   170 10월 15 14:10 cal_main.c
+-rw-rw-r-- 1 gil gil  1784 10월 15 14:38 cal_main.o
+-rw-rw-r-- 1 gil gil    51 10월 15 14:06 int_add.c
+-rw-rw-r-- 1 gil gil  1384 10월 15 14:38 int_add.o
+[gil@c-language]
+
+------------------------
+vi Makefile
+다음 추가.
+all:    cal_main
+-> make해도 어차피 할일 없어서 변화 없음..
+
+
+----
+[gil@c-language]touch *.c
+-> 터치한것.
+  (?)
+
+---
+clean 과 비교하기 위해,
+make all
+이라고 씀.
+해도 그만, 안해도 그만
+
+여기까지가.
+리눅스등의 make의 공통기능
